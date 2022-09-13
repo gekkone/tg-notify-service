@@ -1,7 +1,9 @@
 package main
 
 import (
+	"crypto/sha512"
 	"database/sql"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -148,8 +150,10 @@ func readConfig() Config {
 }
 
 func checkRequestToken(token string) bool {
+	hash := sha512.Sum512([]byte(token))
+	checkSum := hex.EncodeToString(hash[:])
 	for _, validTokens := range config.Tokens {
-		if validTokens == token {
+		if validTokens == checkSum {
 			return true
 		}
 	}
