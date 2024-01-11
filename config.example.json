@@ -1,0 +1,17 @@
+{
+    "botToken": "",
+    "chatId": -99999999,
+    "tokens": [
+        ""
+    ],
+    "durationTimeout": [
+        {
+            "type": "example-notify",
+            "timeoutSecond": 1800
+        },
+        {
+            "type": "second-notify",
+            "timeoutSecond": 3600
+        }
+    ]
+}
