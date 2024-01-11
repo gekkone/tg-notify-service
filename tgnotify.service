@@ -1,0 +1,25 @@
+[Unit]
+Description=Telegram notify service
+
+Wants=network.target
+After=network.target
+
+[Service]
+Environment="LC_ALL=en_US.UTF-8"
+Environment="LANG=en_US.UTF-8"
+Environment="LANGUAGE=en_US.UTF-8"
+Environment="TGNOTIFY_PORT=9999"
+
+User=web
+Group=web
+
+Type=simple
+WorkingDirectory=/home/web/bin/tgNotify
+
+Restart=always
+TimeoutSec=30
+
+ExecStart=/home/web/bin/tgNotify/tgNotifyService
+
+[Install]
+WantedBy=multi-user.target
