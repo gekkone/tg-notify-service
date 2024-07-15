@@ -26,6 +26,7 @@ const initSql string = `
 type Config struct {
 	BotToken        string            `json:"botToken"`
 	ChatId          int64             `json:"chatId"`
+	ThreadId        *int64            `json:"threadId"`
 	Tokens          []string          `json:"tokens"`
 	DurationTimeout []DurationTimeout `json:"durationTimeout"`
 }
@@ -102,6 +103,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	msg := tgbotapi.NewMessage(config.ChatId, notify.Message)
 	msg.DisableNotification = false
+
+	if config.ThreadId != nil {
+		msg.MessageThreadID = int(*config.ThreadId)
+	}
 
 	_, err := tgBot.Send(msg)
 	if err != nil {
