@@ -2,7 +2,7 @@
     "botToken": "",
     "chatId": -99999999,
     "tokens": [
-        ""
+        "sha-512 hash"
     ],
     "durationTimeout": [
         {

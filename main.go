@@ -6,13 +6,14 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	_ "github.com/mattn/go-sqlite3"
 	"io"
 	"net/http"
 	"os"
 	"sync"
 	"time"
+
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 const initSql string = `
@@ -93,7 +94,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if !checkTimeoutNotify(notifyRequest.Type) {
-		w.WriteHeader(http.StatusFound)
+		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte(`{"status":"notification timeout"}`))
 		return
@@ -110,7 +111,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	_, err := tgBot.Send(msg)
 	if err != nil {
-		fmt.Println("не удалось отправить сообщение ", err)
+		fmt.Println("Failed send notify ", err)
 	}
 
 	saveNotify(notify)
